@@ -1,11 +1,17 @@
 <script>
-	export let name;
+	import Navigation from './Navigation.svelte';
 </script>
 
 <style>
-	h1 {
-		color: purple;
-	}
+
 </style>
 
-<h1>Hello {name}!</h1>
+<div>
+	<Navigation />
+</div>
+
+<div class="container">
+	<div class="m-3 text-center">
+		<h1>Central Alert System</h1>
+	</div>
+</div>
