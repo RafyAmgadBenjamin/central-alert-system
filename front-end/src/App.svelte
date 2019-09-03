@@ -3,7 +3,12 @@
 	import Alerts from './components/Alerts.svelte';
 	import axios from 'axios';
 
-	const environments = {prod:"PRODUCTION",dev:"DEVELOPMENT",infra:"INFRASTRUCTURE",all:"ALL"};
+	const environments = {
+		prod: 'PRODUCTION',
+		dev: 'DEVELOPMENT',
+		infra: 'INFRASTRUCTURE',
+		all: 'ALL',
+	};
 	let alerts = '';
 	function updateAlerts(environment) {
 		console.log('chosed environemnt', environment);
@@ -12,6 +17,8 @@
 			.then(function(response) {
 				// handle success
 				console.log('response in success', response.data.alerts);
+				//convertToUpperCase(alerts,"severity")
+				//convertSeverityToUpperCase();
 				alerts = response.data.alerts;
 			})
 			.catch(function(error) {
@@ -22,6 +29,15 @@
 				// always executed
 			});
 	}
+	// function convertToUpperCase(arrayItems,prop) {
+	// 	arrayItems.forEach(singleItem => {
+	// 		singleItem.prop = singleItem.prop.toUpperCase();
+	// 	});
+	// function convertSeverityToUpperCase() {
+	// 	alerts.forEach(element => {
+	// 		element.severity = element.severity.toUpperCase();
+	// 	});
+	// }
 </script>
 
 <style>

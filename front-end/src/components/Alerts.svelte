@@ -1,6 +1,15 @@
 <script>
 	export let alerts;
 	console.log('alerts in Alerts component', alerts);
+	const severity = {
+		CRITICAL: 'CRITICAL',
+		MAJOR: 'MAJOR',
+		MINOR: 'MINOR',
+		WARNING: 'WARNING',
+		INDETERMINATE: 'INDETERMINATE',
+    };
+    
+    
 </script>
 
 <div>
@@ -32,7 +41,36 @@
 					{#each alerts as myAlert, i}
 						<tr>
 							<th scope="row">{i + 1}</th>
-							<td>{myAlert.severity}</td>
+							{#if myAlert.severity == severity.CRITICAL}
+								<td>
+									<span class="badge badge-danger">
+										{myAlert.severity}
+									</span>
+								</td>
+							{:else if myAlert.severity == severity.MAJOR}
+								<td>
+									<span class="badge badge-info">
+										{myAlert.severity}
+									</span>
+								</td>
+							{:else if myAlert.severity == severity.WARNING}
+								<td>
+									<span class="badge badge-warning">
+										{myAlert.severity}
+									</span>
+								</td>
+							{:else if myAlert.severity == severity.MINOR}
+								<td>
+									<span class="badge badge-secondary">
+										{myAlert.severity}
+									</span>
+								</td>
+							{:else}
+								<td>
+									<span class="badge badge-light" />
+									{myAlert.severity}
+								</td>
+							{/if}
 							<td>{myAlert.status}</td>
 							<td>{myAlert.lastReceivedTime}</td>
 							<td>{myAlert.dupl}</td>

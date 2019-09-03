@@ -1,7 +1,7 @@
 {
     "alerts": [
         {
-            "severity": "Critical",
+            "severity": "critical",
             "status": "Open",
             "lastReceivedTime": " fri 16 Oct 00:55",
             "dupl": "0",
@@ -14,7 +14,46 @@
             "messageType": "error"
         },
         {
-            "severity": "Critical",
+            "severity": "MAJOR",
+            "status": "Open",
+            "lastReceivedTime": " fri 16 Oct 00:55",
+            "dupl": "0",
+            "environment": "Development",
+            "service": "JumbScale",
+            "resource": "benjamin",
+            "event": "fireError",
+            "value": "n/a",
+            "text": "this is a very critical i will explode",
+            "messageType": "error"
+        },
+        {
+            "severity": "MINOR",
+            "status": "Open",
+            "lastReceivedTime": " fri 16 Oct 00:55",
+            "dupl": "0",
+            "environment": "Development",
+            "service": "JumbScale",
+            "resource": "benjamin",
+            "event": "fireError",
+            "value": "n/a",
+            "text": "this is a very critical i will explode",
+            "messageType": "error"
+        },
+        {
+            "severity": "WARNING",
+            "status": "Open",
+            "lastReceivedTime": " fri 16 Oct 00:55",
+            "dupl": "0",
+            "environment": "Development",
+            "service": "JumbScale",
+            "resource": "benjamin",
+            "event": "fireError",
+            "value": "n/a",
+            "text": "this is a very critical i will explode",
+            "messageType": "error"
+        },
+        {
+            "severity": "INDETERMINATE",
             "status": "Open",
             "lastReceivedTime": " fri 16 Oct 00:55",
             "dupl": "0",
