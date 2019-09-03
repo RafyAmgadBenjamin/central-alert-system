@@ -1,0 +1,30 @@
+{
+    "alerts": [
+        {
+            "severity": "Critical",
+            "status": "Open",
+            "lastReceivedTime": " fri 16 Oct 00:55",
+            "dupl": "0",
+            "environment": "Production",
+            "Service": "JumbScale",
+            "resource": "rafy",
+            "event": "fireError",
+            "value": "n/a",
+            "text": "this is a very critical i will explode",
+            "messageType": "error"
+        },
+        {
+            "severity": "Critical",
+            "status": "Open",
+            "lastReceivedTime": " fri 16 Oct 00:55",
+            "dupl": "0",
+            "environment": "Develpment",
+            "Service": "JumbScale",
+            "resource": "benjamin",
+            "event": "fireError",
+            "value": "n/a",
+            "text": "this is a very critical i will explode",
+            "messageType": "error"
+        }
+    ]
+}

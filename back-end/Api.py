@@ -14,6 +14,8 @@ redis_port = 6379
 redis_password = ""
 
 # the decorator
+
+
 def enable_cors(fn):
     def _enable_cors(*args, **kwargs):
         # set CORS headers
@@ -32,8 +34,29 @@ def enable_cors(fn):
 app = bottle.app()
 
 
-# @app.route('/api/code/add-highlighted-code', method=['OPTIONS', 'GET', 'POST'])
-# @enable_cors
+@app.route('/api/alerts/get-alerts/<type>', method=['OPTIONS', 'GET', 'POST'])
+@enable_cors
+def get_alerts(type):
+    data = get_data()
+
+    dataList = data["alerts"]
+    filterdData = [item for item in dataList if item['environment'] == type]
+    print(filterdData)
+        
+    # print(type(dataList))
+    # for dictItem in data["alerts"]:
+    #     fileteredData = {k: v for (k, v) in dictItem.items() if v == type}
+    # # data["alerts"][0].items()
+    # print(fileteredData)
+
+
+def get_data():
+    with open('/home/rafy/svelte/central-alert-system/back-end/data.json') as json_file:
+        data = json.load(json_file)
+         #print(data)
+        return data
+
+
 # def add_Highlighted_code():
 #     """
 #     Add the highlighted code to the Redis database
@@ -41,7 +64,7 @@ app = bottle.app()
 #     if request.method == "POST":
 #         response.headers['Access-Control-Allow-Origin'] = '*'
 #         response.headers['Content-type'] = 'application/json'
-        
+
 #     data = request.json['code']
 #     encodedData = stringToBase64(data)
 #     generatedVal = str(generate_random_no())
@@ -104,6 +127,5 @@ app = bottle.app()
 #         # step 5: Retrieve the data message from Redis
 #     except Exception as e:
 #         print(e)
-
 
 run(host='localhost', port=8080, debug=True)
