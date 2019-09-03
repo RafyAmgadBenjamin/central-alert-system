@@ -1,5 +1,27 @@
 <script>
 	import Navigation from './Navigation.svelte';
+	import Alerts from './components/Alerts.svelte';
+	import axios from 'axios';
+
+	const environments = {prod:"PRODUCTION",dev:"DEVELOPMENT",infra:"INFRASTRUCTURE",all:"ALL"};
+	let alerts = '';
+	function updateAlerts(environment) {
+		console.log('chosed environemnt', environment);
+		axios
+			.get('http://localhost:8080/api/alerts/get-alerts/' + environment)
+			.then(function(response) {
+				// handle success
+				console.log('response in success', response.data.alerts);
+				alerts = response.data.alerts;
+			})
+			.catch(function(error) {
+				// handle error
+				console.log('error ', error);
+			})
+			.finally(function() {
+				// always executed
+			});
+	}
 </script>
 
 <style>
@@ -19,7 +41,7 @@
 	<div class="row">
 		<div class="col-sm-12">
 			<!--[Tabs]-->
-			<dir>
+			<div>
 				<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 					<li class="nav-item">
 						<a
@@ -29,7 +51,8 @@
 							href="#pills-all"
 							role="tab"
 							aria-controls="pills-all"
-							aria-selected="true">
+							aria-selected="true"
+							on:click={() => updateAlerts(environments.all)}>
 							All
 						</a>
 					</li>
@@ -41,7 +64,8 @@
 							href="#pills-infra"
 							role="tab"
 							aria-controls="pills-infra"
-							aria-selected="false">
+							aria-selected="false"
+							on:click={() => updateAlerts(environments.infra)}>
 							Infrastructure
 						</a>
 					</li>
@@ -53,7 +77,8 @@
 							href="#pills-prod"
 							role="tab"
 							aria-controls="pills-prod"
-							aria-selected="false">
+							aria-selected="false"
+							on:click={() => updateAlerts(environments.prod)}>
 							Production
 						</a>
 					</li>
@@ -65,7 +90,8 @@
 							href="#pills-development"
 							role="tab"
 							aria-controls="pills-development"
-							aria-selected="false">
+							aria-selected="false"
+							on:click={() => updateAlerts(environments.dev)}>
 							Development
 						</a>
 					</li>
@@ -100,7 +126,17 @@
 						...Development data
 					</div>
 				</div>
-			</dir>
+			</div>
+
 		</div>
 	</div>
+	<!--[Alerts]-->
+	{#if alerts && alerts != ''}
+		<!-- content here -->
+		<div class="row">
+			<div class="col-sm-12">
+				<Alerts {alerts} />
+			</div>
+		</div>
+	{/if}
 </div>

@@ -38,22 +38,18 @@ app = bottle.app()
 @enable_cors
 def get_alerts(type):
     data = get_data()
-
     dataList = data["alerts"]
-    filterdData = [item for item in dataList if item['environment'] == type]
-    print(filterdData)
-        
-    # print(type(dataList))
-    # for dictItem in data["alerts"]:
-    #     fileteredData = {k: v for (k, v) in dictItem.items() if v == type}
-    # # data["alerts"][0].items()
-    # print(fileteredData)
+    if(type.upper() != "ALL"):
+        filterData = [item for item in dataList if item['environment'].upper() == type]
+    else:
+        filterData = dataList
+    return {"alerts": filterData}
 
 
 def get_data():
     with open('/home/rafy/svelte/central-alert-system/back-end/data.json') as json_file:
         data = json.load(json_file)
-         #print(data)
+        # print(data)
         return data
 
 
