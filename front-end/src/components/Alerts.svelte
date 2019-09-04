@@ -7,9 +7,7 @@
 		MINOR: 'MINOR',
 		WARNING: 'WARNING',
 		INDETERMINATE: 'INDETERMINATE',
-    };
-    
-    
+	};
 </script>
 
 <div>
@@ -44,32 +42,23 @@
 							<th scope="row">{i + 1}</th>
 							{#if myAlert.severity == severity.CRITICAL}
 								<td>
-									<span class="badge badge-danger">
-										{myAlert.severity}
-									</span>
+									<span class="badge badge-danger">{myAlert.severity}</span>
 								</td>
 							{:else if myAlert.severity == severity.MAJOR}
 								<td>
-									<span class="badge badge-info">
-										{myAlert.severity}
-									</span>
+									<span class="badge badge-info">{myAlert.severity}</span>
 								</td>
 							{:else if myAlert.severity == severity.WARNING}
 								<td>
-									<span class="badge badge-warning">
-										{myAlert.severity}
-									</span>
+									<span class="badge badge-warning">{myAlert.severity}</span>
 								</td>
 							{:else if myAlert.severity == severity.MINOR}
 								<td>
-									<span class="badge badge-secondary">
-										{myAlert.severity}
-									</span>
+									<span class="badge badge-secondary">{myAlert.severity}</span>
 								</td>
 							{:else}
 								<td>
-									<span class="badge badge-light" />
-									{myAlert.severity}
+									<span class="badge badge-primary">{myAlert.severity}</span>
 								</td>
 							{/if}
 							<td>{myAlert.status}</td>
