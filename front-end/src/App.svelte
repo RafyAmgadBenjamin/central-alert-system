@@ -4,7 +4,9 @@
 	import axios from 'axios';
 
 	let alerts;
+	let searchText = '';
 	let formatedAlerts = '';
+	let currentFilteredAlerts;
 	const environments = {
 		ALL: 'ALL',
 		PROD: 'PRODUCTION',
@@ -45,11 +47,9 @@
 			.then(function(response) {
 				// handle success
 				console.log('response in success', response.data.alerts);
-				//convertToUpperCase(alerts,"severity")
 				formatedAlerts = convertDataToUpperCase(response.data.alerts);
 				filterAlerts(formatedAlerts);
 				console.log('alerts after filtering', alerts);
-				// response.data.alerts;
 			})
 			.catch(function(error) {
 				// handle error
@@ -92,7 +92,19 @@
 			filteredAlerts = filteredAlerts.filter(singelAlert => {
 				return singelAlert.status == currentFilters.status;
 			});
-		alerts = filteredAlerts;
+		currentFilteredAlerts = filteredAlerts; //keeping the current filtered alerts
+		alerts = filteredAlerts; //update the alerts to update the Rendering
+	}
+
+	$: if (searchText) {
+		console.log(searchText);
+		searchAlertsText();
+	}
+	function searchAlertsText() {
+		console.log('alerts in search', currentFilteredAlerts);
+		alerts = currentFilteredAlerts.filter(singleAlert => {
+			return singleAlert.text.includes(searchText);
+		});
 	}
 </script>
 
@@ -224,12 +236,22 @@
 
 					</div>
 				</div>
+				<!--[Search]-->
+				<div>
+					<input
+						type="search"
+						class="form-control"
+						id="InputSearch"
+						placeholder="Search text"
+						bind:value={searchText} />
+
+				</div>
 			</div>
 		</div>
 	</div>
+	<!--[Tabs]-->
 	<div class="row mt-4">
 		<div class="col-sm-12">
-			<!--[Tabs]-->
 			<div>
 				<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
 					<li class="nav-item">
