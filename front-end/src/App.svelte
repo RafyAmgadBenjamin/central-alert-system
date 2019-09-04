@@ -3,13 +3,41 @@
 	import Alerts from './components/Alerts.svelte';
 	import axios from 'axios';
 
+	let alerts;
+	let formatedAlerts = '';
 	const environments = {
-		prod: 'PRODUCTION',
-		dev: 'DEVELOPMENT',
-		infra: 'INFRASTRUCTURE',
-		all: 'ALL',
+		ALL: 'ALL',
+		PROD: 'PRODUCTION',
+		DEV: 'DEVELOPMENT',
+		INFRA: 'INFRASTRUCTURE',
 	};
-	let alerts = '';
+	const services = {
+		ALL: 'ALL',
+		THREEBOT: 'THREEBOT',
+		JUMPSCALE: 'JUMPSCALE',
+		ZEROOS: 'ZEROOS',
+	};
+	const severity = {
+		ALL: 'ALL',
+		CRITICAL: 'CRITICAL',
+		MAJOR: 'MAJOR',
+		MINOR: 'MINOR',
+		WARNING: 'WARNING',
+		INDETERMINATE: 'INDETERMINATE',
+	};
+	const messageTypes = {
+		ALL: 'ALL',
+		ERROR: 'ERROR',
+		INFORMATION: 'INFORMATION',
+		WARNING: 'WARNING',
+	};
+	const status = { ALL: 'ALL', OPEN: 'OPEN', CLOSED: 'CLOSED' };
+	let currentFilters = {
+		service: services.ALL,
+		messageType: messageTypes.ALL,
+		status: status.ALL,
+	};
+	//Get Data from the API
 	function updateAlerts(environment) {
 		console.log('chosed environemnt', environment);
 		axios
@@ -18,7 +46,9 @@
 				// handle success
 				console.log('response in success', response.data.alerts);
 				//convertToUpperCase(alerts,"severity")
-				alerts =convertSeverityToUpperCase(response.data.alerts);
+				formatedAlerts = convertDataToUpperCase(response.data.alerts);
+				filterAlerts(formatedAlerts);
+				console.log('alerts after filtering', alerts);
 				// response.data.alerts;
 			})
 			.catch(function(error) {
@@ -29,15 +59,52 @@
 				// always executed
 			});
 	}
-	// function convertToUpperCase(arrayItems,prop) {
-	// 	arrayItems.forEach(singleItem => {
-	// 		singleItem.prop = singleItem.prop.toUpperCase();
-	// 	});
-	function convertSeverityToUpperCase(alerts) {
+
+	function updateFilters(selectedService, selectedMessageType, selectedState) {
+		currentFilters = {
+			service: selectedService,
+			messageType: selectedMessageType,
+			status: selectedState,
+		};
+		filterAlerts(formatedAlerts);
+	}
+
+	function convertDataToUpperCase(alerts) {
 		for (let i = 0; i < alerts.length; i++) {
 			alerts[i].severity = alerts[i].severity.toUpperCase();
+			alerts[i].service = alerts[i].service.toUpperCase();
+			alerts[i].status = alerts[i].status.toUpperCase();
+			alerts[i].messageType = alerts[i].messageType.toUpperCase();
 		}
 		return alerts;
+	}
+
+	function filterAlerts(alertsToBeFiltered) {
+		// const filteredAlerts = alerts.filter(singleAlert => {
+		// 	singleAlert.service == currentFilters.service &&
+		// 		singleAlert.messageType == currentFilters.messageType &&
+		// 		singleAlert.status == currentFilters.status;
+		// });
+		let filteredAlerts;
+		if (
+			currentFilters.service == services.ALL &&
+			currentFilters.messageType == messageTypes.ALL &&
+			currentFilters.status == status.ALL
+		)
+			filteredAlerts = alertsToBeFiltered;
+		if (currentFilters.service != services.ALL)
+			filteredAlerts = alertsToBeFiltered.filter(singelAlert => {
+				return singelAlert.service == currentFilters.service;
+			});
+		if (currentFilters.messageType != messageTypes.ALL)
+			filteredAlerts = alertsToBeFiltered.filter(singelAlert => {
+				return singelAlert.messageType == currentFilters.messageType;
+			});
+		if (currentFilters.status != status.ALL)
+			filteredAlerts = alertsToBeFiltered.filter(singelAlert => {
+				return singelAlert.status == currentFilters.status;
+			});
+		alerts = filteredAlerts;
 	}
 </script>
 
@@ -57,6 +124,47 @@
 	</div>
 	<div class="row">
 		<div class="col-sm-12">
+			<div class="dropdown">
+				<button
+					class="btn btn-light dropdown-toggle"
+					type="button"
+					id="dropdownMenuButton"
+					data-toggle="dropdown"
+					aria-haspopup="true"
+					aria-expanded="false">
+					Services
+				</button>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+					<a
+						class="dropdown-item"
+						href="#"
+						on:click={() => updateFilters(services.ALL, currentFilters.messageType, currentFilters.status)}>
+						All
+					</a>
+					<a
+						class="dropdown-item"
+						href="#"
+						on:click={() => updateFilters(services.THREEBOT, currentFilters.messageType, currentFilters.status)}>
+						ThreeBot
+					</a>
+					<a
+						class="dropdown-item"
+						href="#"
+						on:click={() => updateFilters(services.JUMPSCALE, currentFilters.messageType, currentFilters.status)}>
+						JumpScale
+					</a>
+					<a
+						class="dropdown-item"
+						href="#"
+						on:click={() => updateFilters(services.ZEROOS, currentFilters.messageType, currentFilters.status)}>
+						Zero OS
+					</a>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="row mt-4">
+		<div class="col-sm-12">
 			<!--[Tabs]-->
 			<div>
 				<ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
@@ -69,7 +177,7 @@
 							role="tab"
 							aria-controls="pills-all"
 							aria-selected="true"
-							on:click={() => updateAlerts(environments.all)}>
+							on:click={() => updateAlerts(environments.ALL)}>
 							All
 						</a>
 					</li>
@@ -82,7 +190,7 @@
 							role="tab"
 							aria-controls="pills-infra"
 							aria-selected="false"
-							on:click={() => updateAlerts(environments.infra)}>
+							on:click={() => updateAlerts(environments.INFRA)}>
 							Infrastructure
 						</a>
 					</li>
@@ -95,7 +203,7 @@
 							role="tab"
 							aria-controls="pills-prod"
 							aria-selected="false"
-							on:click={() => updateAlerts(environments.prod)}>
+							on:click={() => updateAlerts(environments.PROD)}>
 							Production
 						</a>
 					</li>
@@ -108,7 +216,7 @@
 							role="tab"
 							aria-controls="pills-development"
 							aria-selected="false"
-							on:click={() => updateAlerts(environments.dev)}>
+							on:click={() => updateAlerts(environments.DEV)}>
 							Development
 						</a>
 					</li>
