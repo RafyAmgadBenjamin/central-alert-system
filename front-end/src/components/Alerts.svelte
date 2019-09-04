@@ -24,15 +24,15 @@
 						<th scope="col">#</th>
 						<th scope="col">Severity</th>
 						<th scope="col">Status</th>
-						<th scope="col">Last Receive Time</th>
+						<th scope="col">Time</th>
 						<th scope="col">Dupl.</th>
 						<th scope="col">Environment</th>
 						<th scope="col">Service</th>
 						<th scope="col">Resource</th>
 						<th scope="col">Event</th>
 						<th scope="col">Value</th>
-						<th scope="col">Text</th>
 						<th scope="col">Message Type</th>
+						<th scope="col">Text</th>
 					</tr>
 				</thead>
 				<!--[Tasks-Data-Body]-->
@@ -80,8 +80,8 @@
 							<td>{myAlert.resource}</td>
 							<td>{myAlert.event}</td>
 							<td>{myAlert.value}</td>
-							<td>{myAlert.text}</td>
 							<td>{myAlert.messageType}</td>
+							<td>{myAlert.text}</td>
 						</tr>
 					{/each}
 				</tbody>

@@ -2,7 +2,7 @@
     "alerts": [
         {
             "severity": "critical",
-            "status": "Open",
+            "status": "closed",
             "lastReceivedTime": " fri 16 Oct 00:55",
             "dupl": "0",
             "environment": "Production",
@@ -10,7 +10,7 @@
             "resource": "rafy",
             "event": "fireError",
             "value": "n/a",
-            "text": "this is a very critical i will explode",
+            "text": "this is a very critical ",
             "messageType": "error"
         },
         {
@@ -23,12 +23,12 @@
             "resource": "benjamin",
             "event": "fireError",
             "value": "n/a",
-            "text": "this is a very critical i will explode",
+            "text": "this is a very critical ",
             "messageType": "information"
         },
         {
             "severity": "MINOR",
-            "status": "Open",
+            "status": "closed",
             "lastReceivedTime": " fri 16 Oct 00:55",
             "dupl": "0",
             "environment": "Development",
@@ -36,7 +36,7 @@
             "resource": "benjamin",
             "event": "fireError",
             "value": "n/a",
-            "text": "this is a very critical i will explode",
+            "text": "this is a very critical ",
             "messageType": "error"
         },
         {
@@ -49,12 +49,12 @@
             "resource": "benjamin",
             "event": "fireError",
             "value": "n/a",
-            "text": "this is a very critical i will explode",
+            "text": "this is a very critical ",
             "messageType": "warning"
         },
         {
             "severity": "INDETERMINATE",
-            "status": "Open",
+            "status": "closed",
             "lastReceivedTime": " fri 16 Oct 00:55",
             "dupl": "0",
             "environment": "Development",
@@ -62,7 +62,7 @@
             "resource": "benjamin",
             "event": "fireError",
             "value": "n/a",
-            "text": "this is a very critical i will explode",
+            "text": "this is a very critical",
             "messageType": "error"
         }
     ]

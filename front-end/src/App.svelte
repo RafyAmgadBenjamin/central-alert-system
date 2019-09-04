@@ -79,29 +79,30 @@
 		return alerts;
 	}
 
-	function filterAlerts(alertsToBeFiltered) {
+	function filterAlerts(filteredAlerts) {
 		// const filteredAlerts = alerts.filter(singleAlert => {
 		// 	singleAlert.service == currentFilters.service &&
 		// 		singleAlert.messageType == currentFilters.messageType &&
 		// 		singleAlert.status == currentFilters.status;
 		// });
-		let filteredAlerts;
-		if (
-			currentFilters.service == services.ALL &&
-			currentFilters.messageType == messageTypes.ALL &&
-			currentFilters.status == status.ALL
-		)
-			filteredAlerts = alertsToBeFiltered;
+		//let filteredAlerts;
+		//In Case no selected filters
+		// if (
+		// 	currentFilters.service == services.ALL &&
+		// 	currentFilters.messageType == messageTypes.ALL &&
+		// 	currentFilters.status == status.ALL
+		// )
+		//filteredAlerts = alertsToBeFiltered;
 		if (currentFilters.service != services.ALL)
-			filteredAlerts = alertsToBeFiltered.filter(singelAlert => {
+			filteredAlerts = filteredAlerts.filter(singelAlert => {
 				return singelAlert.service == currentFilters.service;
 			});
 		if (currentFilters.messageType != messageTypes.ALL)
-			filteredAlerts = alertsToBeFiltered.filter(singelAlert => {
+			filteredAlerts = filteredAlerts.filter(singelAlert => {
 				return singelAlert.messageType == currentFilters.messageType;
 			});
 		if (currentFilters.status != status.ALL)
-			filteredAlerts = alertsToBeFiltered.filter(singelAlert => {
+			filteredAlerts = filteredAlerts.filter(singelAlert => {
 				return singelAlert.status == currentFilters.status;
 			});
 		alerts = filteredAlerts;
@@ -125,81 +126,116 @@
 	<!--[Filters]-->
 	<div class="row">
 		<div class="col-sm-12">
-		<!--[Serivices]-->
-			<div class="dropdown">
-				<button
-					class="btn btn-light dropdown-toggle"
-					type="button"
-					id="dropdownMenuButton"
-					data-toggle="dropdown"
-					aria-haspopup="true"
-					aria-expanded="false">
-					Services
-				</button>
-				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-					<a
-						class="dropdown-item"
-						href="#"
-						on:click={() => updateFilters(services.ALL, currentFilters.messageType, currentFilters.status)}>
-						All
-					</a>
-					<a
-						class="dropdown-item"
-						href="#"
-						on:click={() => updateFilters(services.THREEBOT, currentFilters.messageType, currentFilters.status)}>
-						ThreeBot
-					</a>
-					<a
-						class="dropdown-item"
-						href="#"
-						on:click={() => updateFilters(services.JUMPSCALE, currentFilters.messageType, currentFilters.status)}>
-						JumpScale
-					</a>
-					<a
-						class="dropdown-item"
-						href="#"
-						on:click={() => updateFilters(services.ZEROOS, currentFilters.messageType, currentFilters.status)}>
-						Zero OS
-					</a>
+			<div class="d-flex justify-content-around">
+				<!--[Services]-->
+				<div class="dropdown">
+					<button
+						class="btn btn-light dropdown-toggle"
+						type="button"
+						id="dropdownMenuButton"
+						data-toggle="dropdown"
+						aria-haspopup="true"
+						aria-expanded="false">
+						Services
+					</button>
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+						<a
+							class="dropdown-item"
+							href="#"
+							on:click={() => updateFilters(services.ALL, currentFilters.messageType, currentFilters.status)}>
+							All
+						</a>
+						<a
+							class="dropdown-item"
+							href="#"
+							on:click={() => updateFilters(services.THREEBOT, currentFilters.messageType, currentFilters.status)}>
+							ThreeBot
+						</a>
+						<a
+							class="dropdown-item"
+							href="#"
+							on:click={() => updateFilters(services.JUMPSCALE, currentFilters.messageType, currentFilters.status)}>
+							JumpScale
+						</a>
+						<a
+							class="dropdown-item"
+							href="#"
+							on:click={() => updateFilters(services.ZEROOS, currentFilters.messageType, currentFilters.status)}>
+							Zero OS
+						</a>
+					</div>
 				</div>
-			</div>
-		<!--[Message-Type]-->
-		<div class="dropdown">
-				<button
-					class="btn btn-light dropdown-toggle"
-					type="button"
-					id="dropdownMenuButton"
-					data-toggle="dropdown"
-					aria-haspopup="true"
-					aria-expanded="false">
-					Message type
-				</button>
-				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-					<a
-						class="dropdown-item"
-						href="#"
-						on:click={() => updateFilters(currentFilters.service, messageTypes.ALL, currentFilters.status)}>
-						All
-					</a>
-					<a
-						class="dropdown-item"
-						href="#"
-						on:click={() => updateFilters(currentFilters.service, messageTypes.ERROR, currentFilters.status)}>
-						Error
-					</a>
-					<a
-						class="dropdown-item"
-						href="#"
-						on:click={() => updateFilters(currentFilters.service, messageTypes.INFORMATION, currentFilters.status)}>
-						Information
-					</a>
-					<a
-						class="dropdown-item"
-						href="#"
-						on:click={() => updateFilters(currentFilters.service, messageTypes.WARNING, currentFilters.status)}>
-						Warning
-					</a>
-					
+				<!--[Message-Type]-->
+				<div class="dropdown">
+					<button
+						class="btn btn-light dropdown-toggle"
+						type="button"
+						id="dropdownMenuButton"
+						data-toggle="dropdown"
+						aria-haspopup="true"
+						aria-expanded="false">
+						Message type
+					</button>
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+						<a
+							class="dropdown-item"
+							href="#"
+							on:click={() => updateFilters(currentFilters.service, messageTypes.ALL, currentFilters.status)}>
+							All
+						</a>
+						<a
+							class="dropdown-item"
+							href="#"
+							on:click={() => updateFilters(currentFilters.service, messageTypes.ERROR, currentFilters.status)}>
+							Error
+						</a>
+						<a
+							class="dropdown-item"
+							href="#"
+							on:click={() => updateFilters(currentFilters.service, messageTypes.INFORMATION, currentFilters.status)}>
+							Information
+						</a>
+						<a
+							class="dropdown-item"
+							href="#"
+							on:click={() => updateFilters(currentFilters.service, messageTypes.WARNING, currentFilters.status)}>
+							Warning
+						</a>
+
+					</div>
+				</div>
+				<!--[Status]-->
+				<div class="dropdown">
+					<button
+						class="btn btn-light dropdown-toggle"
+						type="button"
+						id="dropdownMenuButton"
+						data-toggle="dropdown"
+						aria-haspopup="true"
+						aria-expanded="false">
+						Status
+					</button>
+					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+						<a
+							class="dropdown-item"
+							href="#"
+							on:click={() => updateFilters(currentFilters.service, currentFilters.messageType, status.ALL)}>
+							All
+						</a>
+						<a
+							class="dropdown-item"
+							href="#"
+							on:click={() => updateFilters(currentFilters.service, currentFilters.messageType, status.OPEN)}>
+							Open
+						</a>
+						<a
+							class="dropdown-item"
+							href="#"
+							on:click={() => updateFilters(currentFilters.service, currentFilters.messageType, status.CLOSED)}>
+							Closes
+						</a>
+
+					</div>
 				</div>
 			</div>
 		</div>
@@ -267,9 +303,7 @@
 						class="tab-pane fade show active"
 						id="pills-all"
 						role="tabpanel"
-						aria-labelledby="pills-all-tab">
-						...all data
-					</div>
+						aria-labelledby="pills-all-tab" />
 					<div
 						class="tab-pane fade"
 						id="pills-infra"
