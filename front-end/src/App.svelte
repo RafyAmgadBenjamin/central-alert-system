@@ -39,6 +39,13 @@
 		messageType: messageTypes.ALL,
 		status: status.ALL,
 	};
+
+	document.addEventListener('DOMContentLoaded', function(event) {
+		// your page initialization code here
+		// the DOM will be available here
+		var tab = document.getElementById('pills-all-tab');
+		tab.click();
+	});
 	//Get Data from the API
 	function updateAlerts(environment) {
 		console.log('chosed environemnt', environment);
@@ -112,7 +119,7 @@
 			messageType: messageTypes.ALL,
 			status: status.ALL,
 		};
-		document.getElementById('InputSearch').value = "";
+		document.getElementById('InputSearch').value = '';
 		filterAlerts(formatedAlerts);
 	}
 </script>
@@ -336,21 +343,18 @@
 						id="pills-infra"
 						role="tabpanel"
 						aria-labelledby="pills-infra-tab">
-						...infrastructure data
 					</div>
 					<div
 						class="tab-pane fade"
 						id="pills-prod"
 						role="tabpanel"
 						aria-labelledby="pills-prod-tab">
-						...production data
 					</div>
 					<div
 						class="tab-pane fade"
 						id="pills-development"
 						role="tabpanel"
 						aria-labelledby="pills-development-tab">
-						...Development data
 					</div>
 				</div>
 			</div>
