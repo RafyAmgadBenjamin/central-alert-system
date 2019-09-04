@@ -7,6 +7,7 @@
 	let searchText = '';
 	let formatedAlerts = '';
 	let currentFilteredAlerts;
+	let isAlertsLoaded = false;
 	const environments = {
 		ALL: 'ALL',
 		PROD: 'PRODUCTION',
@@ -44,6 +45,7 @@
 	});
 	//Get Data from the API
 	function updateAlerts(environment) {
+		isAlertsLoaded = false;
 		console.log('chosed environemnt', environment);
 		alerts = [];
 		axios
@@ -54,6 +56,7 @@
 				formatedAlerts = convertDataToUpperCase(response.data.alerts);
 				filterAlerts(formatedAlerts);
 				getServices();
+				isAlertsLoaded = true;
 				console.log('alerts after filtering', alerts);
 			})
 			.catch(function(error) {
@@ -113,7 +116,7 @@
 	}
 	function resetFilters() {
 		currentFilters = {
-			service: services.ALL,
+			service: 'ALL',
 			messageType: messageTypes.ALL,
 			status: status.ALL,
 		};
@@ -153,7 +156,7 @@
 					<!-- content here -->
 					<div class="dropdown">
 						<button
-							class="btn btn-light dropdown-toggle"
+							class="btn btn-light dropdown-toggle pointer"
 							type="button"
 							id="dropdownMenuButton"
 							data-toggle="dropdown"
@@ -177,7 +180,7 @@
 				<!--[Message-Type]-->
 				<div class="dropdown">
 					<button
-						class="btn btn-light dropdown-toggle"
+						class="btn btn-light dropdown-toggle pointer"
 						type="button"
 						id="dropdownMenuButton"
 						data-toggle="dropdown"
@@ -216,7 +219,7 @@
 				<!--[Status]-->
 				<div class="dropdown">
 					<button
-						class="btn btn-light dropdown-toggle"
+						class="btn btn-light dropdown-toggle pointer"
 						type="button"
 						id="dropdownMenuButton"
 						data-toggle="dropdown"
@@ -241,7 +244,7 @@
 							class="dropdown-item"
 							href="#"
 							on:click={() => updateFilters(currentFilters.service, currentFilters.messageType, status.CLOSED)}>
-							Closes
+							Closed
 						</a>
 
 					</div>
@@ -260,7 +263,7 @@
 				<div>
 					<button
 						type="button"
-						class="btn btn-light"
+						class="btn btn-light pointer"
 						on:click={() => resetFilters()}>
 						Reset Filters
 					</button>
@@ -353,16 +356,20 @@
 		</div>
 	</div>
 	<!--[Alerts]-->
-	{#if alerts && alerts != ''}
+	{#if alerts && alerts != '' && isAlertsLoaded}
 		<!-- content here -->
 		<div class="row">
 			<div class="col-sm-12">
 				<Alerts {alerts} />
 			</div>
 		</div>
-	{:else}
+	{:else if !isAlertsLoaded}
 		<div class="text-center">
 			<img src={'/img/loader.gif'} class="img-fluid" alt="Responsive image" />
+		</div>
+	{:else}
+		<div class="mt-5 text-center">
+			<h2>There is no alerts matching your criteria</h2>
 		</div>
 	{/if}
 </div>
