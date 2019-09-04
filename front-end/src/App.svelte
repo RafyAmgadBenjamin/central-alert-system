@@ -18,8 +18,8 @@
 				// handle success
 				console.log('response in success', response.data.alerts);
 				//convertToUpperCase(alerts,"severity")
-				//convertSeverityToUpperCase();
-				alerts = response.data.alerts;
+				alerts =convertSeverityToUpperCase(response.data.alerts);
+				// response.data.alerts;
 			})
 			.catch(function(error) {
 				// handle error
@@ -33,11 +33,12 @@
 	// 	arrayItems.forEach(singleItem => {
 	// 		singleItem.prop = singleItem.prop.toUpperCase();
 	// 	});
-	// function convertSeverityToUpperCase() {
-	// 	alerts.forEach(element => {
-	// 		element.severity = element.severity.toUpperCase();
-	// 	});
-	// }
+	function convertSeverityToUpperCase(alerts) {
+		for (let i = 0; i < alerts.length; i++) {
+			alerts[i].severity = alerts[i].severity.toUpperCase();
+		}
+		return alerts;
+	}
 </script>
 
 <style>
