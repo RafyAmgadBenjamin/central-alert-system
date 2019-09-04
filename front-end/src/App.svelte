@@ -80,19 +80,6 @@
 	}
 
 	function filterAlerts(filteredAlerts) {
-		// const filteredAlerts = alerts.filter(singleAlert => {
-		// 	singleAlert.service == currentFilters.service &&
-		// 		singleAlert.messageType == currentFilters.messageType &&
-		// 		singleAlert.status == currentFilters.status;
-		// });
-		//let filteredAlerts;
-		//In Case no selected filters
-		// if (
-		// 	currentFilters.service == services.ALL &&
-		// 	currentFilters.messageType == messageTypes.ALL &&
-		// 	currentFilters.status == status.ALL
-		// )
-		//filteredAlerts = alertsToBeFiltered;
 		if (currentFilters.service != services.ALL)
 			filteredAlerts = filteredAlerts.filter(singelAlert => {
 				return singelAlert.service == currentFilters.service;
