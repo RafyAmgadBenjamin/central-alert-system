@@ -49,6 +49,7 @@
 	//Get Data from the API
 	function updateAlerts(environment) {
 		console.log('chosed environemnt', environment);
+		alerts=[];
 		axios
 			.get('http://localhost:8080/api/alerts/get-alerts/' + environment)
 			.then(function(response) {
@@ -342,20 +343,17 @@
 						class="tab-pane fade"
 						id="pills-infra"
 						role="tabpanel"
-						aria-labelledby="pills-infra-tab">
-					</div>
+						aria-labelledby="pills-infra-tab" />
 					<div
 						class="tab-pane fade"
 						id="pills-prod"
 						role="tabpanel"
-						aria-labelledby="pills-prod-tab">
-					</div>
+						aria-labelledby="pills-prod-tab" />
 					<div
 						class="tab-pane fade"
 						id="pills-development"
 						role="tabpanel"
-						aria-labelledby="pills-development-tab">
-					</div>
+						aria-labelledby="pills-development-tab" />
 				</div>
 			</div>
 
@@ -368,6 +366,10 @@
 			<div class="col-sm-12">
 				<Alerts {alerts} />
 			</div>
+		</div>
+	{:else}
+		<div class="text-center">
+			<img src={'/img/loader.gif'} class="img-fluid" alt="Responsive image" />
 		</div>
 	{/if}
 </div>

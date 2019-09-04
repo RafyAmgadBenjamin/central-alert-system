@@ -64,6 +64,32 @@
             "value": "n/a",
             "text": "this is a very critical test",
             "messageType": "error"
+        },
+        {
+            "severity": "INDETERMINATE",
+            "status": "closed",
+            "lastReceivedTime": " fri 16 Oct 00:55",
+            "dupl": "0",
+            "environment": "infrastructure",
+            "service": "JumpScale",
+            "resource": "benjamin",
+            "event": "fireError",
+            "value": "n/a",
+            "text": "this is a very critical test",
+            "messageType": "error"
+        },
+        {
+            "severity": "INDETERMINATE",
+            "status": "closed",
+            "lastReceivedTime": " fri 16 Oct 00:55",
+            "dupl": "0",
+            "environment": "infrastructure",
+            "service": "JumpScale",
+            "resource": "benjamin",
+            "event": "fireError",
+            "value": "n/a",
+            "text": "this is a very critical test",
+            "messageType": "error"
         }
     ]
 }

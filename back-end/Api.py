@@ -7,6 +7,8 @@ from bottle import hook, request, response
 from bottle import post, get, put, delete
 import bottle
 import base64
+import time
+
 
 #  configuration information
 redis_host = "localhost"
@@ -43,6 +45,7 @@ def get_alerts(type):
         filterData = [item for item in dataList if item['environment'].upper() == type]
     else:
         filterData = dataList
+    time.sleep(5)
     return {"alerts": filterData}
 
 
