@@ -106,6 +106,15 @@
 			return singleAlert.text.includes(searchText);
 		});
 	}
+	function resetFilters() {
+		currentFilters = {
+			service: services.ALL,
+			messageType: messageTypes.ALL,
+			status: status.ALL,
+		};
+		document.getElementById('InputSearch').value = "";
+		filterAlerts(formatedAlerts);
+	}
 </script>
 
 <style>
@@ -245,6 +254,15 @@
 						placeholder="Search text"
 						bind:value={searchText} />
 
+				</div>
+				<!--[Reset-Filter]-->
+				<div>
+					<button
+						type="button"
+						class="btn btn-light"
+						on:click={() => resetFilters()}>
+						Reset Filters
+					</button>
 				</div>
 			</div>
 		</div>
