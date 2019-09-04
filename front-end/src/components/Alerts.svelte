@@ -32,6 +32,7 @@
 						<th scope="col">Event</th>
 						<th scope="col">Value</th>
 						<th scope="col">Text</th>
+						<th scope="col">Message Type</th>
 					</tr>
 				</thead>
 				<!--[Tasks-Data-Body]-->
@@ -80,6 +81,7 @@
 							<td>{myAlert.event}</td>
 							<td>{myAlert.value}</td>
 							<td>{myAlert.text}</td>
+							<td>{myAlert.messageType}</td>
 						</tr>
 					{/each}
 				</tbody>

@@ -24,7 +24,7 @@
             "event": "fireError",
             "value": "n/a",
             "text": "this is a very critical i will explode",
-            "messageType": "error"
+            "messageType": "information"
         },
         {
             "severity": "MINOR",
@@ -50,7 +50,7 @@
             "event": "fireError",
             "value": "n/a",
             "text": "this is a very critical i will explode",
-            "messageType": "error"
+            "messageType": "warning"
         },
         {
             "severity": "INDETERMINATE",

@@ -122,8 +122,10 @@
 	<div class="m-3 text-center">
 		<h1>Central Alert System</h1>
 	</div>
+	<!--[Filters]-->
 	<div class="row">
 		<div class="col-sm-12">
+		<!--[Serivices]-->
 			<div class="dropdown">
 				<button
 					class="btn btn-light dropdown-toggle"
@@ -159,6 +161,45 @@
 						on:click={() => updateFilters(services.ZEROOS, currentFilters.messageType, currentFilters.status)}>
 						Zero OS
 					</a>
+				</div>
+			</div>
+		<!--[Message-Type]-->
+		<div class="dropdown">
+				<button
+					class="btn btn-light dropdown-toggle"
+					type="button"
+					id="dropdownMenuButton"
+					data-toggle="dropdown"
+					aria-haspopup="true"
+					aria-expanded="false">
+					Message type
+				</button>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+					<a
+						class="dropdown-item"
+						href="#"
+						on:click={() => updateFilters(currentFilters.service, messageTypes.ALL, currentFilters.status)}>
+						All
+					</a>
+					<a
+						class="dropdown-item"
+						href="#"
+						on:click={() => updateFilters(currentFilters.service, messageTypes.ERROR, currentFilters.status)}>
+						Error
+					</a>
+					<a
+						class="dropdown-item"
+						href="#"
+						on:click={() => updateFilters(currentFilters.service, messageTypes.INFORMATION, currentFilters.status)}>
+						Information
+					</a>
+					<a
+						class="dropdown-item"
+						href="#"
+						on:click={() => updateFilters(currentFilters.service, messageTypes.WARNING, currentFilters.status)}>
+						Warning
+					</a>
+					
 				</div>
 			</div>
 		</div>
