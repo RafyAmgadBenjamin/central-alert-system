@@ -13,12 +13,8 @@
 		DEV: 'DEVELOPMENT',
 		INFRA: 'INFRASTRUCTURE',
 	};
-	const services = {
-		ALL: 'ALL',
-		THREEBOT: 'THREEBOT',
-		JUMPSCALE: 'JUMPSCALE',
-		ZEROOS: 'ZEROOS',
-	};
+
+	let services;
 	const severity = {
 		ALL: 'ALL',
 		CRITICAL: 'CRITICAL',
@@ -35,7 +31,7 @@
 	};
 	const status = { ALL: 'ALL', OPEN: 'OPEN', CLOSED: 'CLOSED' };
 	let currentFilters = {
-		service: services.ALL,
+		service: 'ALL',
 		messageType: messageTypes.ALL,
 		status: status.ALL,
 	};
@@ -49,7 +45,7 @@
 	//Get Data from the API
 	function updateAlerts(environment) {
 		console.log('chosed environemnt', environment);
-		alerts=[];
+		alerts = [];
 		axios
 			.get('http://localhost:8080/api/alerts/get-alerts/' + environment)
 			.then(function(response) {
@@ -57,6 +53,7 @@
 				console.log('response in success', response.data.alerts);
 				formatedAlerts = convertDataToUpperCase(response.data.alerts);
 				filterAlerts(formatedAlerts);
+				getServices();
 				console.log('alerts after filtering', alerts);
 			})
 			.catch(function(error) {
@@ -88,7 +85,7 @@
 	}
 
 	function filterAlerts(filteredAlerts) {
-		if (currentFilters.service != services.ALL)
+		if (currentFilters.service != 'ALL')
 			filteredAlerts = filteredAlerts.filter(singelAlert => {
 				return singelAlert.service == currentFilters.service;
 			});
@@ -123,6 +120,14 @@
 		document.getElementById('InputSearch').value = '';
 		filterAlerts(formatedAlerts);
 	}
+	function getServices() {
+		services = formatedAlerts.map(singleAlert => singleAlert.service);
+		//services = [...new Set(services)]; //Making services unique
+		services = Array.from([...new Set(services)]); //Making services unique and convert it from set to array
+		console.log('the type ', typeof services);
+		services.unshift('ALL'); //Add "All" in the begining of the array
+		console.log('services', services);
+	}
 </script>
 
 <style>
@@ -144,43 +149,31 @@
 		<div class="col-sm-12">
 			<div class="d-flex justify-content-around">
 				<!--[Services]-->
-				<div class="dropdown">
-					<button
-						class="btn btn-light dropdown-toggle"
-						type="button"
-						id="dropdownMenuButton"
-						data-toggle="dropdown"
-						aria-haspopup="true"
-						aria-expanded="false">
-						Services
-					</button>
-					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-						<a
-							class="dropdown-item"
-							href="#"
-							on:click={() => updateFilters(services.ALL, currentFilters.messageType, currentFilters.status)}>
-							All
-						</a>
-						<a
-							class="dropdown-item"
-							href="#"
-							on:click={() => updateFilters(services.THREEBOT, currentFilters.messageType, currentFilters.status)}>
-							ThreeBot
-						</a>
-						<a
-							class="dropdown-item"
-							href="#"
-							on:click={() => updateFilters(services.JUMPSCALE, currentFilters.messageType, currentFilters.status)}>
-							JumpScale
-						</a>
-						<a
-							class="dropdown-item"
-							href="#"
-							on:click={() => updateFilters(services.ZEROOS, currentFilters.messageType, currentFilters.status)}>
-							Zero OS
-						</a>
+				{#if services && services.length > 0}
+					<!-- content here -->
+					<div class="dropdown">
+						<button
+							class="btn btn-light dropdown-toggle"
+							type="button"
+							id="dropdownMenuButton"
+							data-toggle="dropdown"
+							aria-haspopup="true"
+							aria-expanded="false">
+							Services
+						</button>
+						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+							{#each services as service}
+								<!-- content here -->
+								<a
+									class="dropdown-item"
+									href="#"
+									on:click={() => updateFilters(service, currentFilters.messageType, currentFilters.status)}>
+									{service}
+								</a>
+							{/each}
+						</div>
 					</div>
-				</div>
+				{/if}
 				<!--[Message-Type]-->
 				<div class="dropdown">
 					<button
