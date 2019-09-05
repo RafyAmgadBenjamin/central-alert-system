@@ -8,6 +8,7 @@
 	let formatedAlerts = '';
 	let currentFilteredAlerts;
 	let isAlertsLoaded = false;
+	let servicesLoading = true;
 	const environments = {
 		ALL: 'ALL',
 		PROD: 'PRODUCTION',
@@ -124,12 +125,14 @@
 		filterAlerts(formatedAlerts);
 	}
 	function getServices() {
+		servicesLoading = true;
 		services = formatedAlerts.map(singleAlert => singleAlert.service);
 		//services = [...new Set(services)]; //Making services unique
 		services = Array.from([...new Set(services)]); //Making services unique and convert it from set to array
 		console.log('the type ', typeof services);
 		services.unshift('ALL'); //Add "All" in the begining of the array
 		console.log('services', services);
+		servicesLoading = false;
 	}
 </script>
 
@@ -152,18 +155,19 @@
 		<div class="col-sm-12">
 			<div class="d-flex justify-content-around">
 				<!--[Services]-->
-				{#if services && services.length > 0}
-					<!-- content here -->
-					<div class="dropdown">
-						<button
-							class="btn btn-light dropdown-toggle pointer"
-							type="button"
-							id="dropdownMenuButton"
-							data-toggle="dropdown"
-							aria-haspopup="true"
-							aria-expanded="false">
-							Services
-						</button>
+				<!-- content here -->
+				<div class="dropdown">
+					<button
+						class="btn btn-light dropdown-toggle pointer"
+						type="button"
+						id="dropdownMenuButton"
+						data-toggle="dropdown"
+						aria-haspopup="true"
+						aria-expanded="false"
+						disabled={servicesLoading}>
+						Services
+					</button>
+					{#if services && services.length > 0}
 						<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 							{#each services as service}
 								<!-- content here -->
@@ -175,8 +179,8 @@
 								</a>
 							{/each}
 						</div>
-					</div>
-				{/if}
+					{/if}
+				</div>
 				<!--[Message-Type]-->
 				<div class="dropdown">
 					<button
