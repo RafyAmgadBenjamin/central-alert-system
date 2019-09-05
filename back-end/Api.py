@@ -39,10 +39,14 @@ app = bottle.app()
 @app.route('/api/alerts/get-alerts/<type>', method=['OPTIONS', 'GET', 'POST'])
 @enable_cors
 def get_alerts(type):
+    """
+    Get alerts depending on the environment
+    """
     data = get_data()
     dataList = data["alerts"]
     if(type.upper() != "ALL"):
-        filterData = [item for item in dataList if item['environment'].upper() == type]
+        filterData = [
+            item for item in dataList if item['environment'].upper() == type]
     else:
         filterData = dataList
     time.sleep(4)
@@ -54,6 +58,49 @@ def get_data():
         data = json.load(json_file)
         # print(data)
         return data
+
+
+@app.route('/api/alerts/add-alert', method=['OPTIONS', 'GET', 'POST'])
+@enable_cors
+def add_alert():
+    """
+    Add the alert to the data base
+    """
+    alert = json.dumps(request.json['alert'])
+    encodedAlerts = stringToBase64(alert)
+
+    generatedVal = str(generate_random_no())
+    add_alert_redis(radndomNo=generatedVal,
+                    data=encodedAlerts)
+    return {"alertId":generatedVal}
+
+
+
+def stringToBase64(s):
+    return base64.b64encode(s.encode('utf-8'))
+
+
+def base64ToString(b):
+    return base64.b64decode(b).decode('utf-8')
+
+
+def add_alert_redis(radndomNo, data):
+    try:
+
+        # The decode_repsonses flag here directs the client to convert the responses from Redis into Python strings
+        # using the default encoding utf-8.  This is client specific.
+        r = redis.StrictRedis(host=redis_host, port=redis_port,
+                              password=redis_password, decode_responses=True)
+
+        # step 4: Set the data in Redis
+        r.set(radndomNo, data)
+        print("from redis " + r.get(radndomNo))
+
+        # step 5: Retrieve the data message from Redis
+    except Exception as e:
+        print(e)
+
+    # Add alert to the database
 
 
 # def add_Highlighted_code():
@@ -73,6 +120,10 @@ def get_data():
 #     return generatedVal
 
 
+def generate_random_no():
+
+    random.seed(a=None)
+    return randint(0, 1000000)  # randint is inclusive at both ends
 # @app.route('/api/code/get-shared-code/<codeId>', method=['OPTIONS', 'GET', 'POST'])
 # @enable_cors
 # def get_shared_code(codeId):
