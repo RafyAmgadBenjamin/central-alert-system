@@ -45,7 +45,7 @@ def get_alerts(type):
         filterData = [item for item in dataList if item['environment'].upper() == type]
     else:
         filterData = dataList
-    time.sleep(1)
+    time.sleep(4)
     return {"alerts": filterData}
 
 

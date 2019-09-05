@@ -189,7 +189,9 @@
 						id="dropdownMenuButton"
 						data-toggle="dropdown"
 						aria-haspopup="true"
-						aria-expanded="false">
+						aria-expanded="false"
+						disabled={servicesLoading}
+						>
 						Message type
 					</button>
 					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -228,7 +230,9 @@
 						id="dropdownMenuButton"
 						data-toggle="dropdown"
 						aria-haspopup="true"
-						aria-expanded="false">
+						aria-expanded="false"
+						disabled={servicesLoading}
+						>
 						Status
 					</button>
 					<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
@@ -268,7 +272,9 @@
 					<button
 						type="button"
 						class="btn btn-light pointer"
-						on:click={() => resetFilters()}>
+						on:click={() => resetFilters()}
+						disabled={servicesLoading}
+						>
 						Reset Filters
 					</button>
 				</div>
