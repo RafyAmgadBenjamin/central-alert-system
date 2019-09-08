@@ -176,7 +176,7 @@ Navigate to [localhost:5000](http://localhost:5000). You should see your app run
 </div>
 ```
 
-* In  ```front-end/src/App.svelte``` will contain the logic to handle the and and get the alets 
+* In  ```front-end/src/App.svelte``` will contain the logic to handle and get the alerts 
 ```javascript 
 function updateFilters(selectedService, selectedMessageType, selectedState) {
 		currentFilters = {
@@ -247,7 +247,7 @@ function updateFilters(selectedService, selectedMessageType, selectedState) {
 
 * In requests handling to deal with APIs, I have used <b>axios library</b>
 , to install ```npm install axios```, import it ```	import axios from 'axios';``` and then you will be able to do requests to the APIs.</br>
-To do <b>POST Request</b>
+To do <b>GET Request</b>
 ```javascript
 //Get Data from the API
 	function updateAlerts(environment) {
@@ -277,7 +277,7 @@ To do <b>POST Request</b>
 ```
 
 ## Working on back-end
-* Create python file <b>example</b> ```back-end/UrlApi.py``` which will contain the code to handle the APIs
+* Create python file <b>example</b> ```back-end/Api.py``` which will contain the code to handle the APIs
 
 * Install bottle Web FrameWork ```pip install bottle```
 
@@ -307,33 +307,6 @@ def get_data():
         return data
 
 ```
-
-* Create random number genrator which will create the random number used in URL creation for sharing  ```import random```  and <b>example</b> for the logic 
-```python
-def generate_random_no():
-    random.seed(a=None)
-    return randint(0, 1000000)  # randint is inclusive at both ends
-```
-
-* Install Redis in your system 
-``` bash
-    sudo apt update
-    sudo apt install redis-server
-```
-
-* Install Redis database in your project ```pip install redis```
-we will store the <b>Random No(URL)</b> (which is randomly generated) and the <b>code</b>
-
-* Import Redis into the python file ```import redis```,Create a Redis client with your configurations 
-```python
-redis_host = "localhost"
-redis_port = 6379
-redis_password = ""
-r = redis.StrictRedis(host=redis_host, port=redis_port,
-                          password=redis_password, decode_responses=True)
-```
- * use Redis commands to store and get the data in Redis database ```        r.set(radndomNo, data)```
-
 
 
 ## Deploying to the web
